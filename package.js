@@ -1,6 +1,6 @@
 Package.describe({
   name: 'etherui:schema-abi-json-bridge',
-  version: '1.0.1',
+  version: '1.0.2',
   // Brief, one-line summary of the package.
   summary: 'Simple Schema - ABI/JSON Ethereum Schema Bridge',
   // URL to the Git repository containing the source code for this package.
