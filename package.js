@@ -17,10 +17,10 @@ Package.onUse(function(api) {
   // common
   api.use('aldeed:simple-schema@1.5.3');
   api.use('check');
-  api.use('ecmascript');
-  api.use('ethereum:web3');
-  api.use('ethereum:accounts');
-  api.use('ethereum:tools');
+  api.use('ecmascript@0.8.3');
+  api.use('ethereum:web3@0.20.2');
+  api.use('ethereum:accounts@0.4.0');
+  api.use('ethereum:tools@0.7.0');
 
   //client
   api.use(['livedata', 'underscore', 'deps', 'templating', 'ui', 'blaze', 'ejson', 'reactive-var', 'reactive-dict', 'random', 'jquery'], 'client');
