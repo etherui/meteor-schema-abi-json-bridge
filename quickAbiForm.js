@@ -56,7 +56,7 @@ Template.quickAbiForm.onRendered(function () {
             let namedOut = [];
             namedOut = _.map(outParamsName, function(name, i) {
               return {"name": name, "value": outDecoded[i].value, "type": outDecoded[i].type};
-            });1
+            });
             namedOut = executeFunctionByName(resultCallback, window, null, namedOut, id, context);
 
             let finishOut = [];
@@ -85,12 +85,12 @@ Template.quickAbiForm.onRendered(function () {
 
   this.updateInterval = setInterval(function() {
     updateSC();
-  }, 10000);
+  }, 30000);
 
 });
 
 Template.quickAbiForm.onDestroyed(function () {
-  Meteor.clearInterval(this.updateInterval); 
+  Meteor.clearInterval(this.updateInterval);
 });
 
 Template.quickAbiForm.helpers({
@@ -220,6 +220,13 @@ Template.quickAbiForm.helpers({
       ) {
       context.buttonContent = false;
     }
+
+    if(!_.isUndefined(context.schema._schema[sourceField].abiInterface) &&
+       context.schema._schema[sourceField].abiInterface.payable
+      ) {
+      context.class = "abiPayable";
+    }
+
     var fields = [sourceField];
     var additionalFields = _.filter(keys, function(field) {
       return field.indexOf(sourceField + ".") != -1;

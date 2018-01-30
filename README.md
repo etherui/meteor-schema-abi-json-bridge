@@ -256,6 +256,9 @@ To provide a more flexible solution for a governing you can use web3 providers.
 ```
 With the code above you can send a transaction with approving from own wallet for Smart Contract autoform.
 
+# Payable function mark
+For each payable function will be added "abiPayable" class. You can use css3 for a styling.
+
 # Demo
 
 https://etherui.net

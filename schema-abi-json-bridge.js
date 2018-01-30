@@ -113,7 +113,7 @@ const getFieldFormat = (name, kind, parent) => {
     break;
     case 'int':
     case 'uint':
-      value = {type: Number,
+      value = {type: String,
                label: name + " (" + kind._type + ")",
                optional: true,
                autoform: {
