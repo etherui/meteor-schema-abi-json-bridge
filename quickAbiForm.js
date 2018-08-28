@@ -23,7 +23,7 @@ Template.quickAbiForm.onRendered(function () {
                             return !_.isUndefined(simpleSchema._schema[item].abiInterface) &&
                                    simpleSchema._schema[item].abiInterface._inputs.length == 0 &&
                                    simpleSchema._schema[item].abiInterface._constant
-                                   item.indexOf('.') == -1 ;
+                                   item.indexOf('.') == -1;
                           }
                         );
   var sourceId = !_.isUndefined(context.id) ? context.id : "commonAbiJson";
@@ -113,10 +113,26 @@ Template.quickAbiForm.helpers({
             var cr = new Constructor(abiInterface);
             var params= [];
             let index = 0;
+            let breakProcess = false;
             _.map(insertDoc[fieldName], function(data) {
+              if(_.indexOf(['fixedArray', 'array'], abiInterface._inputs[index]._kind._type) != -1) {
+                try {
+                  parsedData = JSON.parse(data);
+                  data = parsedData.map((value) => new Token(abiInterface._inputs[index]._kind._subtype._type, value));
+                } catch(e) {
+                  executeFunctionByName(resultCallback, window, "Wrong JSON format");
+                  breakProcess = true;
+                  return false;
+                }
+              }
               params.push(new Token(abiInterface._inputs[index]._kind._type, data));
               index++;
             });
+
+            if(breakProcess) {
+              return false;
+            }
+
             var outParams= [];
             var outParamsName = [];
 

@@ -98,6 +98,7 @@ const getFieldFormat = (name, kind, parent) => {
                }
               };
     break;
+    case 'fixedBytes':
     case 'bytes':
       value = {type: String,
                label: name + " (" + kind._type + ")",
@@ -141,13 +142,18 @@ const getFieldFormat = (name, kind, parent) => {
               };
     break;
     case 'array':
-      value = '';
-    break;
-    case 'fixedBytes':
-      value = '';
-    break;
     case 'fixedArray':
-      value = '';
+      value = {type: String,
+               label: name + "(" + kind._subtype._type + "[] in JSON format)",
+               optional: true,
+               autoform: {
+                 group: parent,
+                 afFieldInput: {
+                   type: "textarea",
+                   rows: 10
+                 }
+               }
+              };
     break;
   }
   return value;
