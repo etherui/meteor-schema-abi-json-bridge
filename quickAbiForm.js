@@ -130,6 +130,7 @@ Template.quickAbiForm.helpers({
             });
 
             if(breakProcess) {
+              interContext.done(new Error("Wrong JSON format"));
               return false;
             }
 
@@ -167,12 +168,14 @@ Template.quickAbiForm.helpers({
                     } catch(e) {
                       console.log(e);
                     }
-                    return interContext.done(null, namedOut);
+                    interContext.done(null, namedOut);
+                    return false;
                   }
                 });
               } catch(e) {
                 executeFunctionByName(resultCallback, window, e);
-                return interContext.done(e);
+                interContext.done(e);
+                return false;
               }
             } else {
               try {
@@ -186,7 +189,8 @@ Template.quickAbiForm.helpers({
                     } catch(e) {
                       console.log(e);
                     }
-                    return interContext.done(error);
+                    interContext.done(error);
+                    return false;
                   } else {
                     var outDecoded = Decoder.decode(outParams, result);
                     var namedOut = [];
@@ -203,7 +207,6 @@ Template.quickAbiForm.helpers({
                 });
               } catch(e) {
                 executeFunctionByName(resultCallback, window, e);
-                console.log(address, encodedData);
                 return interContext.done(e);
               }
             }
@@ -215,6 +218,7 @@ Template.quickAbiForm.helpers({
             } catch(e) {
               console.log(e);
             }
+            return false;
           }
         }
     });
